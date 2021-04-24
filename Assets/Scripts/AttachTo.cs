@@ -14,9 +14,12 @@ public class AttachTo : MonoBehaviour
     {
         if (Target != null)
         {
-            DistanceJoint2D.connectedAnchor = new Vector2(
-                Target.transform.position.x, 
-                Target.transform.position.y);
+            // DistanceJoint2D.connectedAnchor = new Vector2(
+            //     Target.transform.position.x, 
+            //     Target.transform.position.y);
+
+            DistanceJoint2D.enabled = true;
+            DistanceJoint2D.autoConfigureDistance = false;
         }
     }
 }
