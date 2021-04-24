@@ -7,7 +7,6 @@ public class CameraLerpToTransform : MonoBehaviour
     public float cameraDepth = -10f;
     public float minX, minY, maxX, maxY;
 
-    // Update is called once per frame
     void Update()
     {        
         var newPosition = Vector2.Lerp(transform.position, target.position, Time.deltaTime * speed);
