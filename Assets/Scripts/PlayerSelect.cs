@@ -1,15 +1,18 @@
 using UnityEngine;
-
+using Cinemachine;
 public class PlayerSelect : MonoBehaviour
 {
     // Start is called before the first frame update
+    CinemachineVirtualCamera Camerach;
     public GameObject ClimberOne;
     public GameObject Archeologist;
     public GameObject ClimberTwo;
     private bool climberOneSelected = false;
     private void Awake() 
     {
+        Camerach = FindObjectOfType<CinemachineVirtualCamera>();
         ToggleClimber();
+       
     }
 
     // Update is called once per frame
@@ -35,7 +38,9 @@ public class PlayerSelect : MonoBehaviour
             ClimberTwo.GetComponent<PlayerMovement>().enabled = false;
             ClimberTwo.GetComponent<RopeSystem>().enabled = false;
             
-            this.GetComponent<CameraLerpToTransform>().target = ClimberOne.transform;           
+           // this.GetComponent<CameraLerpToTransform>().target = ClimberOne.transform;
+            Camerach.LookAt = ClimberOne.transform;
+            Camerach.Follow = ClimberOne.transform;
         }
         else
         {
@@ -48,8 +53,11 @@ public class PlayerSelect : MonoBehaviour
             ClimberTwo.GetComponent<PlayerMovement>().enabled = true;
             ClimberTwo.GetComponent<RopeSystem>().enabled = true;
 
-            this.GetComponent<CameraLerpToTransform>().target = ClimberTwo.transform;            
+         //   this.GetComponent<CameraLerpToTransform>().target = ClimberTwo.transform;
+            Camerach.LookAt = ClimberTwo.transform;
+            Camerach.Follow = ClimberTwo.transform;
         }
         climberOneSelected = !climberOneSelected;
+
     }
 }
