@@ -2,62 +2,55 @@ using UnityEngine;
 using Cinemachine;
 public class PlayerSelect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    CinemachineVirtualCamera Camerach;
-    public GameObject ClimberOne;
-    public GameObject Archeologist;
-    public GameObject ClimberTwo;
+    CinemachineVirtualCamera virtualCamera;
+    public GameObject climberOne;
+    public GameObject archeologist;
+    public GameObject climberTwo;
     private bool climberOneSelected = false;
     private void Awake() 
     {
-        Camerach = FindObjectOfType<CinemachineVirtualCamera>();
-        ToggleClimber();
-       
+        virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
+        ToggleClimber();       
     }
 
-    // Update is called once per frame
     void Update()
     {
-         if (Input.GetKeyDown("tab"))
-        {
-            print("tab key was pressed");
+        if (Input.GetMouseButton(0))
+        {            
             ToggleClimber();
         }
     }
 
-    private void ToggleClimber()
+    private void ToggleClimber() //TODO: Optimize in awake
     {
         if (!climberOneSelected) 
-        {
-            ClimberOne.GetComponent<DistanceJoint2D>().enabled = true;           
-            ClimberOne.GetComponent<PlayerMovement>().enabled = true;
-            ClimberOne.GetComponent<RopeSystem>().enabled = true;        
+        {   
+            climberOne.GetComponent<DistanceJoint2D>().enabled = true;           
+            climberOne.GetComponent<PlayerMovement>().enabled = true;
+            climberOne.GetComponent<RopeSystem>().SetActive(true);        
 
-            ClimberTwo.GetComponent<RopeSystem>().ResetRope();
-            ClimberTwo.GetComponent<DistanceJoint2D>().enabled = false;
-            ClimberTwo.GetComponent<PlayerMovement>().enabled = false;
-            ClimberTwo.GetComponent<RopeSystem>().enabled = false;
-            
-           // this.GetComponent<CameraLerpToTransform>().target = ClimberOne.transform;
-            Camerach.LookAt = ClimberOne.transform;
-            Camerach.Follow = ClimberOne.transform;
+            climberTwo.GetComponent<RopeSystem>().ResetRope();
+            climberTwo.GetComponent<RopeSystem>().SetActive(false);
+            climberTwo.GetComponent<DistanceJoint2D>().enabled = false;
+            climberTwo.GetComponent<PlayerMovement>().enabled = false;           
+                      
+            virtualCamera.LookAt = climberOne.transform;
+            virtualCamera.Follow = climberOne.transform;
         }
-        else
+        else 
         {
-            ClimberOne.GetComponent<RopeSystem>().ResetRope();
-            ClimberOne.GetComponent<DistanceJoint2D>().enabled = false;;           
-            ClimberOne.GetComponent<PlayerMovement>().enabled = false;
-            ClimberOne.GetComponent<RopeSystem>().enabled = false;   
+            climberOne.GetComponent<RopeSystem>().ResetRope();
+            climberOne.GetComponent<DistanceJoint2D>().enabled = false;;           
+            climberOne.GetComponent<PlayerMovement>().enabled = false;
+            climberOne.GetComponent<RopeSystem>().SetActive(false); 
 
-            ClimberTwo.GetComponent<DistanceJoint2D>().enabled = true;
-            ClimberTwo.GetComponent<PlayerMovement>().enabled = true;
-            ClimberTwo.GetComponent<RopeSystem>().enabled = true;
-
-         //   this.GetComponent<CameraLerpToTransform>().target = ClimberTwo.transform;
-            Camerach.LookAt = ClimberTwo.transform;
-            Camerach.Follow = ClimberTwo.transform;
+            climberTwo.GetComponent<DistanceJoint2D>().enabled = true;
+            climberTwo.GetComponent<PlayerMovement>().enabled = true;
+            climberTwo.GetComponent<RopeSystem>().SetActive(true);
+         
+            virtualCamera.LookAt = climberTwo.transform;
+            virtualCamera.Follow = climberTwo.transform;
         }
         climberOneSelected = !climberOneSelected;
-
     }
 }

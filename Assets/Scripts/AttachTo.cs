@@ -2,24 +2,24 @@ using UnityEngine;
 
 [RequireComponent(typeof(DistanceJoint2D))]
 public class AttachTo : MonoBehaviour
-{   
-    public GameObject Target;
-    private DistanceJoint2D DistanceJoint2D;
+{    
+    public GameObject target;
+    private DistanceJoint2D distanceJoint2D;
     private void Awake() 
     {
-        DistanceJoint2D = this.GetComponent<DistanceJoint2D>();            
+        distanceJoint2D = this.GetComponent<DistanceJoint2D>();            
     }
         
     void Update()
     {
-        if (Target != null)
+        if (target != null)
         {
             // DistanceJoint2D.connectedAnchor = new Vector2(
             //     Target.transform.position.x, 
             //     Target.transform.position.y);
 
-            DistanceJoint2D.enabled = true;
-            DistanceJoint2D.autoConfigureDistance = false;
+            distanceJoint2D.enabled = true;
+            distanceJoint2D.autoConfigureDistance = false;
         }
     }
 }

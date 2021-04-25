@@ -21,6 +21,7 @@ public class RopeSystem : MonoBehaviour
     private bool isColliding;
     private Dictionary<Vector2, int> wrapPointsLookup = new Dictionary<Vector2, int>();
     private SpriteRenderer ropeHingeAnchorSprite;
+    private bool isActive = false;
 
     void Awake ()
     {
@@ -28,6 +29,11 @@ public class RopeSystem : MonoBehaviour
 	    playerPosition = transform.position;
         ropeHingeAnchorRb = ropeHingeAnchor.GetComponent<Rigidbody2D>();
         ropeHingeAnchorSprite = ropeHingeAnchor.GetComponent<SpriteRenderer>();
+    }
+
+    public void SetActive(bool Active)
+    {
+        isActive = Active;
     }
 
     /// <summary>
@@ -100,7 +106,10 @@ public class RopeSystem : MonoBehaviour
 
 	    UpdateRopePositions();
         HandleRopeLength();
-        HandleInput(aimDirection);
+        if (isActive) 
+        {
+            HandleInput(aimDirection);    
+        }        
 	}
 
     /// <summary>
@@ -110,18 +119,18 @@ public class RopeSystem : MonoBehaviour
     private void HandleInput(Vector2 aimDirection)
     {
         if (Input.GetMouseButton(0))
-        {
+        { 
             if (ropeAttached) return;
             ropeRenderer.enabled = true;
 
             var hit = Physics2D.Raycast(playerPosition, aimDirection, ropeMaxCastDistance, ropeLayerMask);
             if (hit.collider != null)
             {
-                ropeAttached = true;
+                ropeAttached = true;                
                 if (!ropePositions.Contains(hit.point))
                 {
                     // Jump slightly to distance the player a little from the ground after grappling to something.
-                    transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 2f), ForceMode2D.Impulse);
+                    //transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 2f), ForceMode2D.Impulse);
                     ropePositions.Add(hit.point);
                     wrapPointsLookup.Add(hit.point, 0);
                     ropeJoint.distance = Vector2.Distance(playerPosition, hit.point);
@@ -132,7 +141,7 @@ public class RopeSystem : MonoBehaviour
             else
             {
                 ropeRenderer.enabled = false;
-                ropeAttached = false;
+                ropeAttached = false;            
                 ropeJoint.enabled = false;
             }
         }
@@ -156,8 +165,10 @@ public class RopeSystem : MonoBehaviour
         ropeRenderer.SetPosition(1, transform.position);
         ropePositions.Clear();
         wrapPointsLookup.Clear();
-        //ropeHingeAnchorSprite.enabled = false;
-        
+        if (ropeHingeAnchorSprite != null)
+        {
+            ropeHingeAnchorSprite.enabled = false;
+        }
     }
 
     /// <summary>
