@@ -1332,3 +1332,24 @@ Received Import Request.
   path: Assets/Scripts/Lose.cs
   artifactKey: Guid(31a40064efa98db4e82d27e4e2e1ec11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Scripts/Lose.cs using Guid(31a40064efa98db4e82d27e4e2e1ec11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd317c6fc2b8cb0f219113175e42900a2') in 0.004537 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003390 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.47 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.725 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.44 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2665 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 98.5 MB.
+System memory in use after: 98.7 MB.
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 3297.
+Total: 1.750400 ms (FindLiveObjects: 0.187800 ms CreateObjectMapping: 0.091600 ms MarkObjects: 1.458200 ms  DeleteObjects: 0.012000 ms)
+
