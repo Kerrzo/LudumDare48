@@ -3,12 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class Lose : MonoBehaviour
 {
-    public float loseHeight = -5f;
+	public GameObject ClimberOne;
+	public GameObject ClimberTwo;
+    public float loseHeight = -15f;
 	
 	void Update ()
     {
 	    if (transform.position.y <= loseHeight)
 	    {
+			ClimberOne.GetComponent<RopeSystem>().ResetRope();
+			ClimberTwo.GetComponent<RopeSystem>().ResetRope();
 	        SceneManager.LoadScene("Game");
 	    }
 	}
